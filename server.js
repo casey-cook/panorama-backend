@@ -1,24 +1,22 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser')
-const dashboardRouter = require ('./routes/dashboardRouter')
-const employeesRouter = require ('./routes/employeesRouter')
-const reviewsRouter = require ('./routes/reviewsRouter')
 
+const employeesRouter = require ('./routes/employeesRouter')
 
 const hostname = 'localhost';
 const port = 4000;
 
 const app = express(); //returns express server application
 
+
 app.use(morgan('dev')); //configures morgan to log using the dev version, prints addtl info
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.json()); //now when server receives requests with json in body, body-parser middleware will parse it into properties of the request object, so we can access it more easily
 
-app.use('/', dashboardRouter);
+
 app.use('/employees', employeesRouter);
-app.use('/reviews', reviewsRouter);
 
 
 app.use((req, res) => {
